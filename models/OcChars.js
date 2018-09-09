@@ -6,6 +6,10 @@ const occharSchema = new Schema({
     type: String,
     required: true
   },
+  class: {
+    type: String,
+    required: true
+  },
   points: {
     type: Number,
     required: true,
