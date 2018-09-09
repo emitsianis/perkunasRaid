@@ -53,7 +53,7 @@ router.post("/login", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const { username, password, check } = req.body;
+  const { username, password } = req.body;
 
   Admin.findOne({ username }).then(user => {
     if (!user) {

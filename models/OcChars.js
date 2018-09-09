@@ -6,7 +6,7 @@ const occharSchema = new Schema({
     type: String,
     required: true
   },
-  class: {
+  charClass: {
     type: String,
     required: true
   },
