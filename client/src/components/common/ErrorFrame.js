@@ -18,6 +18,17 @@ class ErrorFrame extends Component {
             {errors.password}
           </div>
         ) : null}
+        {errors.name !== undefined ? (
+          <div className="alert alert-danger text-danger">{errors.name}</div>
+        ) : null}
+        {errors.charClass !== undefined ? (
+          <div className="alert alert-danger text-danger">
+            {errors.charClass}
+          </div>
+        ) : null}
+        {errors.points !== undefined ? (
+          <div className="alert alert-danger text-danger">{errors.points}</div>
+        ) : null}
       </React.Fragment>
     );
 

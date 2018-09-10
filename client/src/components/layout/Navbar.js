@@ -38,20 +38,20 @@ class Navbar extends Component {
             Admin Panel
           </Link>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <Link className="dropdown-item" to="/">
+            <Link className="dropdown-item" to="/addchar/aq">
               Add new AQ character
             </Link>
-            <Link className="dropdown-item" to="/">
+            <Link className="dropdown-item" to="/deletechar/aq">
               Delete an AQ character
             </Link>
             <Link className="dropdown-item" to="/">
               Edit AQ table
             </Link>
             <div className="dropdown-divider" />
-            <Link className="dropdown-item" to="/">
+            <Link className="dropdown-item" to="/addchar/oc">
               Add new Orfen&Core character
             </Link>
-            <Link className="dropdown-item" to="/">
+            <Link className="dropdown-item" to="/deletechar/oc">
               Delete an Orfen&Core character
             </Link>
             <Link className="dropdown-item" to="/">

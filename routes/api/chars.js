@@ -19,16 +19,19 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    const { name, charClass } = req.body;
+    let { name, charClass, points } = req.body;
 
     AqChars.findOne({ name }).then(char => {
       if (char) {
         errors.name = "There is already an AQ char with that name.";
         return res.status(400).json(errors);
       } else {
+        points = points === "" ? 0 : parseInt(points);
+
         const newChar = new AqChars({
           name: name,
-          charClass: charClass
+          charClass: charClass,
+          points: points
         });
 
         newChar
@@ -93,16 +96,19 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    const { name, charClass } = req.body;
+    let { name, charClass, points } = req.body;
 
     OcChars.findOne({ name }).then(char => {
       if (char) {
         errors.name = "There is already an Orfen&Core char with that name.";
         return res.status(400).json(errors);
       } else {
+        points = points === "" ? 0 : parseInt(points);
+
         const newChar = new OcChars({
           name: name,
-          charClass: charClass
+          charClass: charClass,
+          points: points
         });
 
         newChar

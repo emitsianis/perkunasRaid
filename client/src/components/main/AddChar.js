@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { loginUser } from "../../actions/authActions";
 import ErrorFrame from "../common/ErrorFrame";
+import { addChar } from "../../actions/charActions";
 
-class Login extends Component {
+class AddChar extends Component {
   constructor() {
     super();
     this.state = {
-      username: "",
-      password: "",
+      name: "",
+      charClass: "",
+      points: "",
       errors: {}
     };
 
@@ -18,16 +19,15 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
+    if (
+      this.props.match.params.group !== "aq" &&
+      this.props.match.params.group !== "oc"
+    ) {
       this.props.history.push("/");
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/");
-    }
-
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -40,46 +40,63 @@ class Login extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const userData = {
-      username: this.state.username,
-      password: this.state.password
+    const newChar = {
+      name: this.state.name,
+      charClass: this.state.charClass,
+      points: this.state.points
     };
 
-    this.props.loginUser(userData);
+    this.props.addChar(
+      this.props.match.params.group,
+      newChar,
+      this.props.history
+    );
   }
 
   render() {
     const { errors } = this.props;
+    const group =
+      this.props.match.params.group === "aq" ? "Ant Queen" : "Orfen&Core";
 
     return (
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6 mx-auto text-light">
-            <h2 className="text-success">Admin Login</h2>
+            <h2 className="text-success">Add {group} char</h2>
             <ErrorFrame errors={errors} />
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Username"
-                  name="username"
-                  value={this.state.username}
+                  placeholder="Char Name"
+                  name="name"
+                  value={this.state.name}
                   onChange={this.onChange}
                 />
               </div>
               <div className="form-group">
                 <input
-                  type="password"
+                  type="text"
                   className="form-control"
-                  placeholder="Password"
-                  name="password"
-                  value={this.state.password}
+                  placeholder="Char class"
+                  name="charClass"
+                  value={this.state.charClass}
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Initial points, leave blank for 0"
+                  name="points"
+                  value={this.state.points}
                   onChange={this.onChange}
                 />
               </div>
               <button type="submit" className="btn btn-success mt-4 btn-block">
-                Login
+                Add
               </button>
             </form>
           </div>
@@ -89,18 +106,16 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+AddChar.propTypes = {
+  addChar: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
   errors: state.errors
 });
 
 export default connect(
   mapStateToProps,
-  { loginUser }
-)(Login);
+  { addChar }
+)(AddChar);

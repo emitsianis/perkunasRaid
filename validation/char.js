@@ -6,6 +6,7 @@ module.exports = function validateCharInput(data) {
 
   data.name = !isEmpty(data.name) ? data.name : "";
   data.charClass = !isEmpty(data.charClass) ? data.charClass : "";
+  data.points = !isEmpty(data.points) ? data.points : "";
 
   if (Validator.isEmpty(data.name)) {
     errors.name = "Name field is required";
@@ -13,6 +14,10 @@ module.exports = function validateCharInput(data) {
 
   if (Validator.isEmpty(data.charClass)) {
     errors.charClass = "Class field is required";
+  }
+
+  if (!Validator.isInt(data.points) && data.points !== "") {
+    errors.points = "Points must be a number or blank";
   }
 
   return {

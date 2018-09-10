@@ -13,6 +13,8 @@ import Navbar from "./components/layout/Navbar";
 import Login from "./components/auth/Login";
 import AqTable from "./components/main/AqTable";
 import OcTable from "./components/main/OcTable";
+import AddChar from "./components/main/AddChar";
+import DeleteChar from "./components/main/DeleteChar";
 
 import "./App.css";
 
@@ -36,6 +38,16 @@ class App extends Component {
             <Route exact path="/" component={AqTable} />
             <Route exact path="/oc" component={OcTable} />
             <Route exact path="/login" component={Login} />
+            <Switch>
+              <PrivateRoute exact path="/addchar/:group" component={AddChar} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/deletechar/:group"
+                component={DeleteChar}
+              />
+            </Switch>
           </div>
         </Router>
       </Provider>

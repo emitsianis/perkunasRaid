@@ -12,8 +12,7 @@ const occharSchema = new Schema({
   },
   points: {
     type: Number,
-    required: true,
-    default: 0
+    required: true
   },
   date: {
     type: Date,
