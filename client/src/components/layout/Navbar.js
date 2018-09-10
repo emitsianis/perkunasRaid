@@ -21,7 +21,7 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/">
+          <Link className="nav-link" to="/oc">
             Orfen & Core CDLs
           </Link>
         </li>
@@ -82,7 +82,7 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/">
+          <Link className="nav-link" to="/oc">
             Orfen & Core CDLs
           </Link>
         </li>

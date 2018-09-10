@@ -11,6 +11,8 @@ import { setCurrentUser } from "./actions/authActions";
 import PrivateRoute from "./components/common/PrivateRoute";
 import Navbar from "./components/layout/Navbar";
 import Login from "./components/auth/Login";
+import AqTable from "./components/main/AqTable";
+import OcTable from "./components/main/OcTable";
 
 import "./App.css";
 
@@ -31,6 +33,8 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
+            <Route exact path="/" component={AqTable} />
+            <Route exact path="/oc" component={OcTable} />
             <Route exact path="/login" component={Login} />
           </div>
         </Router>
