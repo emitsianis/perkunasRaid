@@ -11,40 +11,44 @@ const validateLoginInput = require("../../validation/login");
 const Admin = require("../../models/Admin");
 const keys = require("../../config/keys");
 
-router.post("/register", (req, res) => {
-  const { errors, isValid } = validateRegisterInput(req.body);
+router.post(
+  "/register",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateRegisterInput(req.body);
 
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-
-  Admin.findOne({ username: req.body.username }).then(user => {
-    if (user) {
-      errors.username = "Username already exists";
+    if (!isValid) {
       return res.status(400).json(errors);
-    } else {
-      const newUser = new Admin({
-        username: req.body.username,
-        password: req.body.password
-      });
-
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then(user => {
-              res.json(user);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        });
-      });
     }
-  });
-});
+
+    Admin.findOne({ username: req.body.username }).then(user => {
+      if (user) {
+        errors.username = "Username already exists";
+        return res.status(400).json(errors);
+      } else {
+        const newUser = new Admin({
+          username: req.body.username,
+          password: req.body.password
+        });
+
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser
+              .save()
+              .then(user => {
+                res.json(user);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          });
+        });
+      }
+    });
+  }
+);
 
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
@@ -57,7 +61,7 @@ router.post("/login", (req, res) => {
 
   Admin.findOne({ username }).then(user => {
     if (!user) {
-      errors.username = "User not found";
+      errors.username = "Username and password do not match";
       return res.status(404).json(errors);
     }
 
@@ -82,8 +86,8 @@ router.post("/login", (req, res) => {
             });
           });
         } else {
-          errors.password = "Password inncorrect";
-          return res.status(400).json(errors);
+          errors.password = "Username and password do not match";
+          return res.status(404).json(errors);
         }
       })
       .catch(err => console.log(err));
