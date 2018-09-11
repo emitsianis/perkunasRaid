@@ -25,6 +25,11 @@ class Navbar extends Component {
             Orfen & Core CDLs
           </Link>
         </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/bosses">
+            Boss Respawns
+          </Link>
+        </li>
         <li className="nav-item dropdown">
           <Link
             className="nav-link dropdown-toggle"
@@ -62,6 +67,10 @@ class Navbar extends Component {
               Create new admin account
             </a> */}
             <div className="dropdown-divider" />
+            <Link className="dropdown-item" to="/bosses/edit">
+              Add boss Time of Death
+            </Link>
+            <div className="dropdown-divider" />
             <a
               className="dropdown-item"
               href=""
@@ -84,6 +93,11 @@ class Navbar extends Component {
         <li className="nav-item">
           <Link className="nav-link" to="/oc">
             Orfen & Core CDLs
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/bosses">
+            Boss Respawns
           </Link>
         </li>
         <li className="nav-item">

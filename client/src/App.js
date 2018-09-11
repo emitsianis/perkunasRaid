@@ -6,7 +6,7 @@ import setAuthToken from "./utils/setAuthToken";
 import { Provider } from "react-redux";
 import store from "./store";
 
-import { setCurrentUser } from "./actions/authActions";
+import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import PrivateRoute from "./components/common/PrivateRoute";
 import Navbar from "./components/layout/Navbar";
@@ -15,6 +15,8 @@ import AqTable from "./components/main/AqTable";
 import OcTable from "./components/main/OcTable";
 import AddChar from "./components/main/AddChar";
 import DeleteChar from "./components/main/DeleteChar";
+import EditBosses from "./components/main/EditBosses";
+import BossRespawns from "./components/main/BossRespawns";
 
 import "./App.css";
 
@@ -26,6 +28,14 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   //Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
+
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    //Logout user
+    store.dispatch(logoutUser());
+    //Redirect to login
+    window.location.href = "/";
+  }
 }
 
 class App extends Component {
@@ -38,6 +48,7 @@ class App extends Component {
             <Route exact path="/" component={AqTable} />
             <Route exact path="/oc" component={OcTable} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/bosses" component={BossRespawns} />
             <Switch>
               <PrivateRoute exact path="/addchar/:group" component={AddChar} />
             </Switch>
@@ -47,6 +58,9 @@ class App extends Component {
                 path="/deletechar/:group"
                 component={DeleteChar}
               />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/bosses/edit" component={EditBosses} />
             </Switch>
           </div>
         </Router>

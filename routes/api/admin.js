@@ -79,12 +79,17 @@ router.post("/login", (req, res) => {
 
           //Sign token
 
-          jwt.sign(payload, keys.secretOrKey, (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token
-            });
-          });
+          jwt.sign(
+            payload,
+            keys.secretOrKey,
+            { expiresIn: 86400 },
+            (err, token) => {
+              res.json({
+                success: true,
+                token: "Bearer " + token
+              });
+            }
+          );
         } else {
           errors.password = "Username and password do not match";
           return res.status(404).json(errors);
