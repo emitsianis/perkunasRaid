@@ -10,17 +10,7 @@ router.post(
   "/edit/:name",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    let x = req.body.tod.split("/");
-    const temp = x[0];
-    x[0] = x[1];
-    x[1] = temp;
-    const y = x.join("/");
-
-    const { name } = req.params;
-    const tod = new Date(y);
-
-    let tor = new Date(y);
-    tor.setHours(tor.getHours() + 30);
+    const { name, tod, tor } = req.body;
 
     Bosses.findOneAndUpdate({ name }, { tod: tod, tor: tor })
       .then(boss => res.json(boss))

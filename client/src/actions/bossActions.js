@@ -21,10 +21,10 @@ export const getBosses = () => dispatch => {
 };
 
 // add boss ToD
-export const editBoss = (bossName, tod, history) => dispatch => {
+export const editBoss = (data, history) => dispatch => {
   dispatch(clearErrors());
   axios
-    .post(`/api/bosses/edit/${bossName}`, { tod })
+    .post(`/api/bosses/edit/${data.name}`, data)
     .then(res => {
       history.push("/bosses");
     })

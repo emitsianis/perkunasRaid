@@ -30,7 +30,23 @@ class EditBosses extends Component {
   onSubmit(bossName, bossTod, e) {
     e.preventDefault();
 
-    this.props.editBoss(bossName, bossTod, this.props.history);
+    let x = bossTod.split("/");
+    const temp = x[0];
+    x[0] = x[1];
+    x[1] = temp;
+    const y = x.join("/");
+
+    const tod = new Date(y);
+    let tor = new Date(y);
+    tor.setHours(tor.getHours() + 30);
+
+    const data = {
+      name: bossName,
+      tod: tod,
+      tor: tor
+    };
+
+    this.props.editBoss(data, this.props.history);
   }
 
   render() {
