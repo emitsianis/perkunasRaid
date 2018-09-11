@@ -20,6 +20,10 @@ module.exports = function validateCharInput(data) {
     errors.points = "Points must be a number or blank";
   }
 
+  if (data.points < 0) {
+    errors.points = "Points must be 0 or more";
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)

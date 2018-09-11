@@ -55,6 +55,42 @@ export const deleteChar = (group, id, history) => dispatch => {
     });
 };
 
+//remove points from char
+export const removePoints = (group, points, id) => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .post(`/api/chars/removepoints/${group}/${id}`, { points })
+    .then(res => {
+      window.location.reload();
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+//create new event
+export const newEvent = (group, data, history) => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .post(`/api/chars/newevent/${group}`, data)
+    .then(res => {
+      if (group === "aq") {
+        history.push("/");
+      } else {
+        history.push("/oc");
+      }
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
 //Set loading state
 export const setCharsLoading = () => {
   return {

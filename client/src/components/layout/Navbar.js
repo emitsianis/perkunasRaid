@@ -2,12 +2,24 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, resetMonth } from "../../actions/authActions";
 
 class Navbar extends Component {
   onLogoutClick(e) {
     e.preventDefault();
     this.props.logoutUser();
+  }
+
+  onResetClick(e) {
+    e.preventDefault();
+
+    if (
+      window.confirm(
+        "Are you sure you want to reset the month? This is NOT reversible."
+      )
+    ) {
+      this.props.resetMonth();
+    }
   }
 
   render() {
@@ -43,14 +55,27 @@ class Navbar extends Component {
             Admin Panel
           </Link>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a
+              className="dropdown-item text-danger"
+              href=""
+              onClick={this.onResetClick.bind(this)}
+            >
+              Reset Month
+            </a>
+            <div className="dropdown-divider" />
+            <div className="dropdown-divider" />
             <Link className="dropdown-item" to="/addchar/aq">
               Add new AQ character
             </Link>
             <Link className="dropdown-item" to="/deletechar/aq">
               Delete an AQ character
             </Link>
-            <Link className="dropdown-item" to="/">
-              Edit AQ table
+            <Link className="dropdown-item" to="/removepoints/aq">
+              Remove points from Ant Queen char
+            </Link>
+            <div className="dropdown-divider" />
+            <Link className="dropdown-item text-success" to="/newevent/aq">
+              Add new Ant Queen event
             </Link>
             <div className="dropdown-divider" />
             <Link className="dropdown-item" to="/addchar/oc">
@@ -59,8 +84,12 @@ class Navbar extends Component {
             <Link className="dropdown-item" to="/deletechar/oc">
               Delete an Orfen&Core character
             </Link>
-            <Link className="dropdown-item" to="/">
-              Edit Orfen&Core table
+            <Link className="dropdown-item" to="/removepoints/oc">
+              Remove points from Orfen&Core char
+            </Link>
+            <div className="dropdown-divider" />
+            <Link className="dropdown-item text-success" to="/newevent/oc">
+              Add new Orfen or Core event
             </Link>
             {/* <div className="dropdown-divider" />
             <a className="dropdown-item" href="#">
@@ -134,6 +163,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  resetMonth: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 
@@ -143,5 +173,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, resetMonth }
 )(Navbar);

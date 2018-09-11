@@ -29,6 +29,9 @@ class ErrorFrame extends Component {
         {errors.points !== undefined ? (
           <div className="alert alert-danger text-danger">{errors.points}</div>
         ) : null}
+        {errors.day !== undefined ? (
+          <div className="alert alert-danger text-danger">{errors.day}</div>
+        ) : null}
       </React.Fragment>
     );
 

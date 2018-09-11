@@ -4,10 +4,16 @@ import uuid from "uuid";
 
 class TableItem extends Component {
   render() {
-    const { char } = this.props;
+    const { char, group } = this.props;
 
-    const content = char.visits.map(
-      visit => (visit ? <td key={uuid()}>1</td> : <td key={uuid()} />)
+    const visits = char.visits.split(" ").map(visit => parseInt(visit, 10));
+    const content = visits.map(
+      visit =>
+        visit ? (
+          <td key={uuid()}>{group === "aq" ? 1 : 3}</td>
+        ) : (
+          <td key={uuid()} />
+        )
     );
 
     return (
@@ -22,7 +28,8 @@ class TableItem extends Component {
 }
 
 TableItem.propTypes = {
-  char: PropTypes.object.isRequired
+  char: PropTypes.object.isRequired,
+  group: PropTypes.string.isRequired
 };
 
 export default TableItem;

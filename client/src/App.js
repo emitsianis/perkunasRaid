@@ -17,6 +17,8 @@ import AddChar from "./components/main/AddChar";
 import DeleteChar from "./components/main/DeleteChar";
 import EditBosses from "./components/main/EditBosses";
 import BossRespawns from "./components/main/BossRespawns";
+import RemovePoints from "./components/main/RemovePoints";
+import NewEvent from "./components/main/NewEvent";
 
 import "./App.css";
 
@@ -43,7 +45,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
+          <div className="App mb-5">
             <Navbar />
             <Route exact path="/" component={AqTable} />
             <Route exact path="/oc" component={OcTable} />
@@ -61,6 +63,20 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/bosses/edit" component={EditBosses} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/removepoints/:group"
+                component={RemovePoints}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/newevent/:group"
+                component={NewEvent}
+              />
             </Switch>
           </div>
         </Router>

@@ -3,6 +3,8 @@ const router = express.Router();
 const passport = require("passport");
 
 const validateCharInput = require("../../validation/char");
+const validatePointsInput = require("../../validation/points");
+const validateDayInput = require("../../validation/day");
 
 const AqChars = require("../../models/AqChars");
 const OcChars = require("../../models/OcChars");
@@ -85,6 +87,66 @@ router.delete(
   }
 );
 
+//Remove points from aq char
+router.post(
+  "/removepoints/aq/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validatePointsInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    const { points } = req.body;
+
+    AqChars.findById(req.params.id)
+      .then(char => {
+        if (points > char.points) {
+          errors.points = "Exceeded total points";
+          return res.status(400).json(errors);
+        }
+
+        char.points -= points;
+        char.save().then(res.json(char));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+);
+
+//Add new aq event
+router.post(
+  "/newevent/aq/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const data = {
+      day: req.body.day
+    };
+    const { errors, isValid } = validateDayInput(data);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    const { ids } = req.body;
+    const day = req.body.day - 1;
+
+    ids.forEach(id => {
+      AqChars.findById(id).then(char => {
+        char.points += 1;
+        visits = char.visits.split(" ");
+        visits[day] = "1";
+        char.visits = visits.join(" ");
+        char.save();
+      });
+    });
+
+    res.json({ success: true });
+  }
+);
+
 //Create new oc char
 router.post(
   "/oc/create",
@@ -159,6 +221,90 @@ router.delete(
       .catch(err => {
         res.status(404).json({ charnotfound: "No char found" });
       });
+  }
+);
+
+//Remove points from oc char
+router.post(
+  "/removepoints/oc/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validatePointsInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    const { points } = req.body;
+
+    OcChars.findById(req.params.id)
+      .then(char => {
+        if (points > char.points) {
+          errors.points = "Exceeded total points";
+          return res.status(400).json(errors);
+        }
+
+        char.points -= points;
+        char.save().then(res.json(char));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+);
+
+//Add new oc event
+router.post(
+  "/newevent/oc/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const data = {
+      day: req.body.day
+    };
+    const { errors, isValid } = validateDayInput(data);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    const { ids } = req.body;
+    const day = req.body.day - 1;
+
+    ids.forEach(id => {
+      OcChars.findById(id).then(char => {
+        char.points += 3;
+        visits = char.visits.split(" ");
+        visits[day] = "1";
+        char.visits = visits.join(" ");
+        char.save();
+      });
+    });
+
+    res.json({ success: true });
+  }
+);
+
+router.get(
+  "/reset",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    AqChars.find().then(chars => {
+      chars.forEach(char => {
+        char.visits =
+          "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
+        char.save();
+      });
+    });
+
+    OcChars.find().then(chars => {
+      chars.forEach(char => {
+        char.visits =
+          "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
+        char.save();
+      });
+    });
+
+    res.json({ success: true });
   }
 );
 

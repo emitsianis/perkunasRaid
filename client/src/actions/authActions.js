@@ -58,3 +58,14 @@ export const logoutUser = () => dispatch => {
   dispatch(setCurrentUser({}));
   window.location.reload();
 };
+
+export const resetMonth = () => dispatch => {
+  axios
+    .get("/api/chars/reset")
+    .then(res => {
+      window.location.href = "/";
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};

@@ -18,7 +18,7 @@ class AqTable extends Component {
       content = <Spinner />;
     } else {
       const tableContent = chars.map(char => (
-        <TableItem key={char._id} char={char} />
+        <TableItem key={char._id} char={char} group={"aq"} />
       ));
 
       content = (
