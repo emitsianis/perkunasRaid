@@ -24,13 +24,7 @@ router.post(
 
     Bosses.findOneAndUpdate({ name }, { tod: tod, tor: tor })
       .then(boss => res.json(boss))
-      .catch(
-        err => console.log(err)
-        // res.json({
-        //   date:
-        //     "Invalid date format. Please use month/day/year hours/minutes format."
-        // })
-      );
+      .catch(err => console.log(err));
   }
 );
 
