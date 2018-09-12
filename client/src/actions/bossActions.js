@@ -20,6 +20,24 @@ export const getBosses = () => dispatch => {
     );
 };
 
+export const getEpicBosses = () => dispatch => {
+  dispatch(setBossesLoading());
+  axios
+    .get("/api/bosses/epic")
+    .then(res =>
+      dispatch({
+        type: GET_BOSSES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_BOSSES,
+        payload: null
+      })
+    );
+};
+
 // add boss ToD
 export const editBoss = (data, history) => dispatch => {
   dispatch(clearErrors());
@@ -27,6 +45,21 @@ export const editBoss = (data, history) => dispatch => {
     .post(`/api/bosses/edit/${data.name}`, data)
     .then(res => {
       history.push("/bosses");
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+export const editEpicBoss = (data, history) => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .post("/api/bosses/epic/edit", data)
+    .then(res => {
+      history.push("/epicbosses");
     })
     .catch(err => {
       dispatch({

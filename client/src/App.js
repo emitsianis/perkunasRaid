@@ -16,7 +16,9 @@ import OcTable from "./components/main/OcTable";
 import AddChar from "./components/main/AddChar";
 import DeleteChar from "./components/main/DeleteChar";
 import EditBosses from "./components/main/EditBosses";
+import EditEpicBosses from "./components/main/EditEpicBosses";
 import BossRespawns from "./components/main/BossRespawns";
+import EpicBossRespawns from "./components/main/EpicBossRespawns";
 import RemovePoints from "./components/main/RemovePoints";
 import NewEvent from "./components/main/NewEvent";
 
@@ -51,6 +53,7 @@ class App extends Component {
             <Route exact path="/oc" component={OcTable} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/bosses" component={BossRespawns} />
+            <Route exact path="/epicbosses" component={EpicBossRespawns} />
             <Switch>
               <PrivateRoute exact path="/addchar/:group" component={AddChar} />
             </Switch>
@@ -63,6 +66,13 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/bosses/edit" component={EditBosses} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/epicbosses/edit"
+                component={EditEpicBosses}
+              />
             </Switch>
             <Switch>
               <PrivateRoute

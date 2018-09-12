@@ -42,6 +42,11 @@ class Navbar extends Component {
             Boss Respawns
           </Link>
         </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/epicbosses">
+            Epic Boss Respawns
+          </Link>
+        </li>
         <li className="nav-item dropdown">
           <Link
             className="nav-link dropdown-toggle"
@@ -100,6 +105,10 @@ class Navbar extends Component {
               Add boss Time of Death
             </Link>
             <div className="dropdown-divider" />
+            <Link className="dropdown-item" to="/epicbosses/edit">
+              Add Epic boss Time of Death
+            </Link>
+            <div className="dropdown-divider" />
             <a
               className="dropdown-item"
               href=""
@@ -127,6 +136,11 @@ class Navbar extends Component {
         <li className="nav-item">
           <Link className="nav-link" to="/bosses">
             Boss Respawns
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/epicbosses">
+            Epic Boss Respawns
           </Link>
         </li>
         <li className="nav-item">
