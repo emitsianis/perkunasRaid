@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../common/Spinner";
 import { getBosses } from "../../actions/bossActions";
-import Moment from "react-moment";
 
 class BossRespawns extends Component {
   componentDidMount() {
@@ -20,10 +19,8 @@ class BossRespawns extends Component {
       const tableContent = bosses.map(boss => (
         <tr key={boss._id}>
           <td>{boss.fullName}</td>
-          <td />
-          <td>
-            <Moment format="DD/MM/YYYY @ HH:mm">{boss.tor}</Moment>
-          </td>
+          <td>{boss.tod}</td>
+          <td>{boss.tor}</td>
         </tr>
       ));
 

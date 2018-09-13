@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const bossSchema = new Schema({
   tod: {
-    type: Date,
+    type: String,
     required: true
   },
   tor: {
-    type: Date,
+    type: String,
     required: true
   },
   name: {
