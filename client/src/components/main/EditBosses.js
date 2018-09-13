@@ -76,11 +76,15 @@ class EditBosses extends Component {
       if (year % 4 === 0 && year % 100 !== 0) {
         extra = Math.floor(total / 29);
         day = total % 30;
-        day++;
+        if (total > 29) {
+          day++;
+        }
       } else {
         extra = Math.floor(total / 28);
         day = total % 29;
-        day++;
+        if (total > 28) {
+          day++;
+        }
       }
     }
     if (
@@ -94,7 +98,9 @@ class EditBosses extends Component {
     ) {
       extra = Math.floor(total / 31);
       day = total % 32;
-      day++;
+      if (total > 31) {
+        day++;
+      }
     }
     if (
       month === 4 ||
@@ -105,7 +111,9 @@ class EditBosses extends Component {
     ) {
       extra = Math.floor(total / 30);
       day = total % 31;
-      day++;
+      if (total > 30) {
+        day++;
+      }
     }
     //done with day
 

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../common/Spinner";
 import { getEpicBosses } from "../../actions/bossActions";
-import Moment from "react-moment";
 
 class EpicBossRespawns extends Component {
   componentDidMount() {
@@ -20,13 +19,11 @@ class EpicBossRespawns extends Component {
       const tableContent = bosses.map(boss => (
         <tr key={boss._id}>
           <td>{boss.fullName}</td>
+          <td>{boss.tod}</td>
           <td>
-            <Moment format="DD/MM/YYYY @ HH:mm">{boss.tod}</Moment>
-          </td>
-          <td>
-            <Moment format="DD/MM/YYYY @ HH:mm">{boss.tor}</Moment>
+            {boss.tor}
             ------
-            <Moment format="DD/MM/YYYY @ HH:mm">{boss.tor2}</Moment>
+            {boss.tor2}
           </td>
         </tr>
       ));

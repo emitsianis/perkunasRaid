@@ -29,8 +29,8 @@ class BossRespawns extends Component {
           <thead className="thead-dark">
             <tr>
               <th scope="col">Boss name</th>
-              <th scope="col">Time of Death</th>
-              <th scope="col">Respawn time</th>
+              <th scope="col">Time of Death (CEST)</th>
+              <th scope="col">Respawn time (CEST)</th>
             </tr>
           </thead>
           <tbody>{tableContent}</tbody>

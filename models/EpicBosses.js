@@ -3,15 +3,15 @@ const Schema = mongoose.Schema;
 
 const epicBossSchema = new Schema({
   tod: {
-    type: Date,
+    type: String,
     required: true
   },
   tor: {
-    type: Date,
+    type: String,
     required: true
   },
   tor2: {
-    type: Date,
+    type: String,
     required: true
   },
   name: {

@@ -30,31 +30,116 @@ class EditEpicBosses extends Component {
   onSubmit(bossName, bossTod, e) {
     e.preventDefault();
 
-    let x = bossTod.split("/");
-    const temp = x[0];
-    x[0] = x[1];
-    x[1] = temp;
-    const y = x.join("/");
+    const x = bossTod.split("/");
+    const day = x[0];
+    const month = x[1];
+    const year = x[2].split(" ")[0];
+    const y = x[2].split(" ")[1];
+    const hours = y.split(":")[0];
+    const mins = y.split(":")[1];
 
-    const tod = new Date(y);
-    let tor = new Date(y);
-    let tor2 = new Date(y);
+    const date = {
+      day: day,
+      month: month,
+      year: year,
+      hours: hours,
+      mins: mins
+    };
+
+    let tor;
+    let tor2;
+
     if (bossName === "baium") {
-      tor.setHours(tor.getHours() + 115);
-      tor2.setHours(tor2.getHours() + 120);
+      tor = this.addHours(date, 115);
+      tor2 = this.addHours(date, 120);
+    } else if (bossName === "aq") {
+      tor = this.addHours(date, 20);
+      tor2 = this.addHours(date, 28);
     } else {
-      tor.setHours(tor.getHours() + 36);
-      tor2.setHours(tor2.getHours() + 48);
+      tor = this.addHours(date, 36);
+      tor2 = this.addHours(date, 48);
     }
 
     const data = {
       name: bossName,
-      tod: tod,
+      tod: bossTod,
       tor: tor,
       tor2: tor2
     };
 
     this.props.editEpicBoss(data, this.props.history);
+  }
+
+  addHours(date, hrs) {
+    let day = parseInt(date.day, 10);
+    let month = parseInt(date.month, 10);
+    let year = parseInt(date.year, 10);
+    let hours = parseInt(date.hours, 10);
+    let mins = parseInt(date.mins, 10);
+    let total;
+    let extra;
+
+    total = hours + hrs;
+    extra = Math.floor(total / 24);
+    hours = total % 24;
+    //done with hours
+
+    total = day + extra;
+    if (month === 2) {
+      if (year % 4 === 0 && year % 100 !== 0) {
+        extra = Math.floor(total / 29);
+        day = total % 30;
+        if (total > 29) {
+          day++;
+        }
+      } else {
+        extra = Math.floor(total / 28);
+        day = total % 29;
+        if (total > 28) {
+          day++;
+        }
+      }
+    }
+    if (
+      month === 1 ||
+      month === 3 ||
+      month === 5 ||
+      month === 7 ||
+      month === 8 ||
+      month === 10 ||
+      month === 12
+    ) {
+      extra = Math.floor(total / 31);
+      day = total % 32;
+      if (total > 31) {
+        day++;
+      }
+    }
+    if (
+      month === 4 ||
+      month === 6 ||
+      month === 7 ||
+      month === 9 ||
+      month === 11
+    ) {
+      extra = Math.floor(total / 30);
+      day = total % 31;
+      if (total > 30) {
+        day++;
+      }
+    }
+    //done with day
+
+    month = month + extra;
+    if (month === 13) {
+      month = 1;
+      year++;
+    }
+    //done with month
+    //done with year
+    mins = mins > 9 ? "" + mins : "0" + mins;
+
+    return `${day}/${month}/${year} ${hours}:${mins}`;
   }
 
   render() {
