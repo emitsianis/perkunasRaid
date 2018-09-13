@@ -52,7 +52,7 @@ class EditEpicBosses extends Component {
     if (bossName === "baium") {
       tor = this.addHours(date, 115);
       tor2 = this.addHours(date, 120);
-    } else if (bossName === "aq") {
+    } else if (bossName === "qa") {
       tor = this.addHours(date, 20);
       tor2 = this.addHours(date, 28);
     } else {
