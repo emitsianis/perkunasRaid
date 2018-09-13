@@ -20,9 +20,7 @@ class BossRespawns extends Component {
       const tableContent = bosses.map(boss => (
         <tr key={boss._id}>
           <td>{boss.fullName}</td>
-          <td>
-            <Moment format="DD/MM/YYYY @ HH:mm">{boss.tod}</Moment>
-          </td>
+          <td />
           <td>
             <Moment format="DD/MM/YYYY @ HH:mm">{boss.tor}</Moment>
           </td>
@@ -34,8 +32,8 @@ class BossRespawns extends Component {
           <thead className="thead-dark">
             <tr>
               <th scope="col">Boss name</th>
-              <th scope="col">Time of Death (CEST)</th>
-              <th scope="col">Respawn time (CEST)</th>
+              <th scope="col">Time of Death</th>
+              <th scope="col">Respawn time</th>
             </tr>
           </thead>
           <tbody>{tableContent}</tbody>
