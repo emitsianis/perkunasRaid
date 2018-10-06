@@ -90,12 +90,14 @@ class EditEpicBosses extends Component {
         extra = Math.floor(total / 29);
         day = total % 30;
         if (total > 29) {
+          month = month + extra;
           day++;
         }
       } else {
         extra = Math.floor(total / 28);
         day = total % 29;
         if (total > 28) {
+          month = month + extra;
           day++;
         }
       }
@@ -112,6 +114,7 @@ class EditEpicBosses extends Component {
       extra = Math.floor(total / 31);
       day = total % 32;
       if (total > 31) {
+        month = month + extra;
         day++;
       }
     }
@@ -125,12 +128,12 @@ class EditEpicBosses extends Component {
       extra = Math.floor(total / 30);
       day = total % 31;
       if (total > 30) {
+        month = month + extra;
         day++;
       }
     }
     //done with day
 
-    month = month + extra;
     if (month === 13) {
       month = 1;
       year++;
